@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POSITIVA FM</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .info {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.5em;
+            }
+
+            button {
+                padding: 8px 16px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>POSITIVA FM</h1>
+    <audio id="radio" src="https://stm37.srvstm.com:6888/stream" preload="auto"></audio>
+    <button onclick="playRadio()">Play</button>
+    <button onclick="stopRadio()">Stop</button>
+
+    <div class="info">
+        <div id="time"></div>
+    </div>
+
+    <script>
+        const radio = document.getElementById('radio');
+
+        function playRadio() {
+            radio.src = "https://stm37.srvstm.com:6888/stream"; // Atualiza a fonte para forçar a recarga do áudio
+            radio.currentTime = 0; // Reinicia o áudio sempre que o play é acionado
+            radio.play();
+        }
+
+        function stopRadio() {
+            radio.pause();
+            radio.currentTime = 0; // Reinicia o áudio ao parar
+        }
+
+        // Função para atualizar a hora
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            document.getElementById('time').textContent = ` ${timeString}`;
+        }
+
+        // Atualiza a hora a cada segundo
+        setInterval(updateTime, 1000);
+        // Define a hora inicialmente ao carregar a página
+        updateTime();
+    </script>
+</body>
+</html>
