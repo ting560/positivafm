@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-98MVHJ8P6C"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-98MVHJ8P6C');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-98MVHJ8P6C"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-98MVHJ8P6C');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>POSITIVA FM</title>
@@ -47,9 +45,10 @@
             background-color: #0056b3;
         }
 
-        .info {
+        .info, #status {
             margin-top: 20px;
             text-align: center;
+            color: #007bff;
         }
 
         @media (max-width: 600px) {
@@ -72,33 +71,40 @@
 
     <div class="info">
         <div id="time"></div>
+        <div id="status">Parado.</div>
     </div>
 
     <script>
         const radio = document.getElementById('radio');
+        const status = document.getElementById('status');
 
         function playRadio() {
-            radio.src = "https://stm37.srvstm.com:6888/stream"; // Atualiza a fonte para forçar a recarga do áudio
-            radio.currentTime = 0; // Reinicia o áudio sempre que o play é acionado
+            radio.src = "https://stm37.srvstm.com:6888/stream"; // Força recarga do áudio
+            radio.currentTime = 0; // Reinicia o áudio ao tocar
             radio.play();
+            status.textContent = 'Tocando...';
         }
 
         function stopRadio() {
             radio.pause();
             radio.currentTime = 0; // Reinicia o áudio ao parar
+            status.textContent = 'Parado.';
         }
+
+        radio.addEventListener('error', () => {
+            status.textContent = 'Erro ao carregar o áudio.';
+        });
 
         // Função para atualizar a hora
         function updateTime() {
             const now = new Date();
             const timeString = now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-            document.getElementById('time').textContent = ` ${timeString}`;
+            document.getElementById('time').textContent = `Hora atual: ${timeString}`;
         }
 
         // Atualiza a hora a cada segundo
         setInterval(updateTime, 1000);
-        // Define a hora inicialmente ao carregar a página
-        updateTime();
+        updateTime(); // Define a hora inicialmente ao carregar a página
     </script>
 </body>
 </html>
