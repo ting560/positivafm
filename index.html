@@ -32,7 +32,8 @@
         button {
             padding: 10px 20px;
             font-size: 1em;
-            margin: 10px;
+            margin: 10px auto; /* Centraliza os botões */
+            display: block;
             border: none;
             border-radius: 5px;
             background-color: #007bff;
@@ -51,6 +52,45 @@
             color: #007bff;
         }
 
+        .social-buttons {
+            position: fixed;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .social-buttons.left {
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+        }
+
+        .social-buttons.right {
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+        }
+
+        .social-button {
+            width: 40px;
+            height: 40px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+            background-color: transparent; /* Remove o fundo */
+        }
+
+        .social-button img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .social-button:hover {
+            background-color: #e0e0e0; /* Opcional: cor de fundo ao passar o mouse */
+        }
+
         @media (max-width: 600px) {
             h1 {
                 font-size: 1.5em;
@@ -61,6 +101,7 @@
                 font-size: 0.9em;
             }
         }
+        
     </style>
 </head>
 <body>
@@ -74,20 +115,46 @@
         <div id="status">Parado.</div>
     </div>
 
+    <!-- Botões de redes sociais à esquerda -->
+    <div class="social-buttons left">
+        <a href="https://api.whatsapp.com/send/?phone=5524999936696&text&app_absent=0" target="_blank" class="social-button">
+            <img src="https://cdn-icons-png.flaticon.com/128/13051/13051741.png" alt="WhatsApp">
+        </a>
+        <a href="https://www.instagram.com/positivafm95/" target="_blank" class="social-button">
+            <img src="https://cdn-icons-png.flaticon.com/128/3955/3955024.png" alt="Instagram">
+        </a>
+        <a href="https://www.facebook.com/positivafm95/" target="_blank" class="social-button">
+            <img src="https://cdn-icons-png.flaticon.com/128/733/733547.png" alt="Facebook">
+        </a>
+    </div>
+
+    <!-- Botões de redes sociais à direita -->
+    <div class="social-buttons right">
+        <a href="https://x.com/radiopositivafm/" target="_blank" class="social-button">
+            <img src="https://cdn-icons-png.flaticon.com/128/5969/5969020.png" alt="Twitter">
+        </a>
+        <a href="https://www.youtube.com/@topangra" target="_blank" class="social-button">
+            <img src="https://cdn-icons-png.flaticon.com/128/3670/3670147.png" alt="YouTube">
+        </a>
+        <a href="https://radiopositivafm.com.br/" target="_blank" class="social-button">
+            <img src="https://cdn-icons-png.flaticon.com/128/3308/3308395.png" alt="Website">
+        </a>
+    </div>
+    
     <script>
         const radio = document.getElementById('radio');
         const status = document.getElementById('status');
 
         function playRadio() {
-            radio.src = "https://stm37.srvstm.com:6888/stream"; // Força recarga do áudio
-            radio.currentTime = 0; // Reinicia o áudio ao tocar
+            radio.src = "https://stm37.srvstm.com:6888/stream";
+            radio.currentTime = 0;
             radio.play();
             status.textContent = 'Tocando...';
         }
 
         function stopRadio() {
             radio.pause();
-            radio.currentTime = 0; // Reinicia o áudio ao parar
+            radio.currentTime = 0;
             status.textContent = 'Parado.';
         }
 
@@ -95,16 +162,14 @@
             status.textContent = 'Erro ao carregar o áudio.';
         });
 
-        // Função para atualizar a hora
         function updateTime() {
             const now = new Date();
             const timeString = now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-            document.getElementById('time').textContent = `Hora atual: ${timeString}`;
+            document.getElementById('time').textContent = `Hora: ${timeString}`;
         }
 
-        // Atualiza a hora a cada segundo
         setInterval(updateTime, 1000);
-        updateTime(); // Define a hora inicialmente ao carregar a página
+        updateTime();
     </script>
 </body>
 </html>
