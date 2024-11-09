@@ -27,12 +27,13 @@
             font-size: 2em;
             margin-bottom: 20px;
             color: #333;
+            text-align: center;
         }
 
         button {
             padding: 10px 20px;
             font-size: 1em;
-            margin: 10px auto; /* Centraliza os botões */
+            margin: 10px auto;
             display: block;
             border: none;
             border-radius: 5px;
@@ -52,6 +53,7 @@
             color: #007bff;
         }
 
+        /* Social Buttons */
         .social-buttons {
             position: fixed;
             display: flex;
@@ -79,7 +81,7 @@
             align-items: center;
             justify-content: center;
             transition: background-color 0.3s;
-            background-color: transparent; /* Remove o fundo */
+            background-color: transparent;
         }
 
         .social-button img {
@@ -88,7 +90,7 @@
         }
 
         .social-button:hover {
-            background-color: #e0e0e0; /* Opcional: cor de fundo ao passar o mouse */
+            background-color: #e0e0e0;
         }
 
         @media (max-width: 600px) {
@@ -101,7 +103,34 @@
                 font-size: 0.9em;
             }
         }
-        
+
+        /* Carousel Styles */
+        .carousel-container {
+            margin-top: 20px;
+            width: 90%;
+            max-width: 600px;
+            overflow: hidden;
+            position: relative;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .carousel {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .carousel a {
+            flex: 0 0 100%;
+            text-align: center;
+        }
+
+        .carousel img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            object-fit: cover;
+        }
     </style>
 </head>
 <body>
@@ -115,7 +144,7 @@
         <div id="status">Parado.</div>
     </div>
 
-    <!-- Botões de redes sociais à esquerda -->
+    <!-- Social Media Buttons -->
     <div class="social-buttons left">
         <a href="https://api.whatsapp.com/send/?phone=5524999936696&text&app_absent=0" target="_blank" class="social-button">
             <img src="https://cdn-icons-png.flaticon.com/128/13051/13051741.png" alt="WhatsApp">
@@ -128,7 +157,6 @@
         </a>
     </div>
 
-    <!-- Botões de redes sociais à direita -->
     <div class="social-buttons right">
         <a href="https://x.com/radiopositivafm/" target="_blank" class="social-button">
             <img src="https://cdn-icons-png.flaticon.com/128/5969/5969020.png" alt="Twitter">
@@ -140,7 +168,22 @@
             <img src="https://cdn-icons-png.flaticon.com/128/3308/3308395.png" alt="Website">
         </a>
     </div>
-    
+
+    <!-- Carousel of Ads -->
+    <div class="carousel-container">
+        <div class="carousel" id="carousel">
+            <a href="https://sourjnet.com.br/#" target="_blank">
+                <img src="/rjnet.jpeg" alt="Anunciante 1">
+            </a>
+            <a href="https://www.facebook.com/tucaparafusos/?locale=pt_BR" target="_blank">
+                <img src="/tuca.jpeg" alt="Anunciante 2">
+            </a>
+            <a href="https://www.instagram.com/acouguepantanalcentro/" target="_blank">
+                <img src="/pantanal.jpg" alt="Anunciante 3">
+            </a>
+        </div>
+    </div>
+
     <script>
         const radio = document.getElementById('radio');
         const status = document.getElementById('status');
@@ -170,6 +213,19 @@
 
         setInterval(updateTime, 1000);
         updateTime();
+
+        // Carousel Functionality
+        const carousel = document.getElementById('carousel');
+        const totalSlides = document.querySelectorAll('#carousel a').length;
+        let currentIndex = 0;
+
+        function showNextSlide() {
+            currentIndex = (currentIndex + 1) % totalSlides;
+            const offset = -currentIndex * 100;
+            carousel.style.transform = `translateX(${offset}%)`;
+        }
+
+        setInterval(showNextSlide, 3000);
     </script>
 </body>
 </html>
